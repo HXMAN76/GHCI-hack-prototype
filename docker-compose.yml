@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # Backend API
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: voicebanker-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://voicebanker:voicebanker@postgres:5432/voicebanker
+      - BACKEND_PORT=8000
+      - ENVIRONMENT=development
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app/backend
+      - ./tests:/app/tests
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - voicebanker-network
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: voicebanker-postgres
+    environment:
+      - POSTGRES_USER=voicebanker
+      - POSTGRES_PASSWORD=voicebanker
+      - POSTGRES_DB=voicebanker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - voicebanker-network
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: voicebanker-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - backend
+    networks:
+      - voicebanker-network
+
+volumes:
+  postgres_data:
+
+networks:
+  voicebanker-network:
+    driver: bridge
