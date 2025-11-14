@@ -1,13 +1,16 @@
 {
   "name": "voicebanker-frontend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
+  "description": "VoiceBanker Frontend Application",
+  "author": "",
+  "license": "MIT",
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
-    "axios": "^1.6.2",
-    "react-router-dom": "^6.20.0"
+    "axios": "^1.7.4",
+    "react-router-dom": "^6.28.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,7 +20,8 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app"
+      "react-app",
+      "react-app/jest"
     ]
   },
   "browserslist": {
@@ -33,8 +37,12 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0"
+    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=11.0.0"
   }
 }
