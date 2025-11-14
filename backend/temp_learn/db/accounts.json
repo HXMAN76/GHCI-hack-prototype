@@ -1,0 +1,37 @@
+{
+  "accounts": [
+    {
+      "account_number": "9876543210",
+      "account_holder": "Arjun Kumar",
+      "account_type": "Savings",
+      "balance": 50000.00,
+      "currency": "INR",
+      "ifsc_code": "SBIN0001234",
+      "branch": "Mumbai Main Branch",
+      "created_at": "2023-05-15T10:30:00Z",
+      "status": "active"
+    },
+    {
+      "account_number": "9876543211",
+      "account_holder": "Priya Sharma",
+      "account_type": "Current",
+      "balance": 150000.00,
+      "currency": "INR",
+      "ifsc_code": "SBIN0001235",
+      "branch": "Delhi Central Branch",
+      "created_at": "2022-03-20T14:45:00Z",
+      "status": "active"
+    },
+    {
+      "account_number": "9876543212",
+      "account_holder": "Rajesh Patel",
+      "account_type": "Savings",
+      "balance": 75000.50,
+      "currency": "INR",
+      "ifsc_code": "SBIN0001236",
+      "branch": "Bangalore Tech Park",
+      "created_at": "2023-08-10T09:15:00Z",
+      "status": "active"
+    }
+  ]
+}

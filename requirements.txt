@@ -4,8 +4,8 @@ uvicorn[standard]==0.24.0
 python-multipart==0.0.6
 
 # Speech Recognition (Vosk - offline)
-vosk==0.3.45
-pysound==0.1.1
+vosk==0.3.44
+pysound==0.2
 
 # NLP Engine (Rasa)
 rasa==3.5.0

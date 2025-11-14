@@ -1,0 +1,36 @@
+version: "3.1"
+
+stories:
+  - story: user asks for balance (happy path)
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: check_balance
+      - action: action_check_balance
+      - action: utter_balance
+
+  - story: user asks for balance after small talk
+    steps:
+      - intent: smalltalk_how_are_you
+      - action: utter_how_are_you
+      - intent: check_balance
+      - action: action_check_balance
+      - action: utter_balance
+
+  - story: user provides account number explicitly
+    steps:
+      - intent: check_balance
+        entities:
+          - account_number: "9876543210"
+      - action: action_check_balance
+      - action: utter_balance
+
+  - story: user asks balance but asks follow-up for account number
+    steps:
+      - intent: check_balance
+      - action: action_check_balance
+      - intent: provide_account_number
+        entities:
+          - account_number: "9876543210"
+      - action: action_check_balance
+      - action: utter_balance

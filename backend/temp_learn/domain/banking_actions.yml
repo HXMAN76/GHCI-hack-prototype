@@ -1,0 +1,175 @@
+version: "3.1"
+
+actions:
+  - action_check_balance
+  - action_transfer_money
+  - action_view_transaction_history
+  - action_view_loan_info
+  - action_check_billing_alerts
+  - action_view_account_info
+  - action_enroll_voice_biometric
+  - action_verify_voice_biometric
+  - action_generate_otp
+  - action_verify_otp
+  - action_provide_help
+  - action_confirm_action
+
+slots:
+  # Account
+  account_number:
+    type: text
+    mappings: []
+  account_holder:
+    type: text
+    mappings: []
+  account_type:
+    type: text
+    mappings: []
+  balance:
+    type: float
+    mappings: []
+
+  # Transfer
+  amount:
+    type: float
+    mappings: []
+  recipient:
+    type: text
+    mappings: []
+  transfer_amount:
+    type: float
+    mappings: []
+  transfer_recipient:
+    type: text
+    mappings: []
+  transaction_id:
+    type: text
+    mappings: []
+
+  # Loan
+  loan_id:
+    type: text
+    mappings: []
+  loan_type:
+    type: text
+    mappings: []
+  loan_balance:
+    type: float
+    mappings: []
+  loan_emi:
+    type: float
+    mappings: []
+
+  # Alerts
+  pending_bills:
+    type: text
+    mappings: []
+  total_bill_amount:
+    type: float
+    mappings: []
+
+  # Authentication
+  voice_enrolled:
+    type: bool
+    mappings: []
+  voice_verified:
+    type: bool
+    mappings: []
+  biometric_id:
+    type: text
+    mappings: []
+  confidence_score:
+    type: float
+    mappings: []
+  otp_sent:
+    type: bool
+    mappings: []
+  otp_verified:
+    type: bool
+    mappings: []
+  otp:
+    type: text
+    mappings: []
+  otp_expiry:
+    type: text
+    mappings: []
+  otp_attempts:
+    type: int
+    mappings: []
+  otp_blocked:
+    type: bool
+    mappings: []
+
+  # Confirmation
+  action_type:
+    type: text
+    mappings: []
+  action_amount:
+    type: float
+    mappings: []
+  action_recipient:
+    type: text
+    mappings: []
+  action_awaiting_confirmation:
+    type: bool
+    mappings: []
+
+responses:
+  utter_balance:
+    - text: "Your current account balance is {balance} {currency}."
+
+  utter_ask_transfer_confirmation:
+    - text: "Please confirm: Transfer {transfer_amount} to {transfer_recipient}?"
+      buttons:
+        - payload: "/SetSlots(action_awaiting_confirmation=true)"
+          title: Yes
+        - payload: "/SetSlots(action_awaiting_confirmation=false)"
+          title: No
+
+  utter_transfer_success:
+    - text: "Transfer successful. Transaction ID: {transaction_id}. Your new balance is {balance} {currency}."
+
+  utter_transfer_failed:
+    - text: "Transfer failed: {reason}. Please check and try again."
+
+  utter_ask_for_otp:
+    - text: "An OTP has been sent to your registered number. Please provide the 6-digit code to proceed."
+
+  utter_otp_sent:
+    - text: "OTP sent. It will expire in {otp_expiry} seconds."
+
+  utter_otp_verified:
+    - text: "OTP verified successfully. Proceeding with the requested operation."
+
+  utter_otp_invalid:
+    - text: "The OTP you provided is invalid or expired."
+
+  utter_otp_max_attempts:
+    - text: "You've exceeded the maximum number of OTP verification attempts (3). Please request a new OTP to continue."
+
+  utter_biometric_enrolled:
+    - text: "Voice biometric enrolled successfully. You can now authenticate with your voice."
+
+  utter_biometric_failed:
+    - text: "Biometric enrollment failed. Please try again or use OTP as a fallback."
+
+  utter_biometric_verified:
+    - text: "Voice verified successfully."
+
+  utter_no_loans:
+    - text: "We couldn't find any loans on your account."
+
+  utter_loan_info:
+    - text: "Loan {loan_id}: Outstanding {loan_balance} {currency}, EMI {loan_emi} {currency}/month, Status: {loan_status}."
+
+  utter_no_alerts:
+    - text: "You have no pending bills."
+
+  utter_list_alerts:
+    - text: "You have the following pending bills:\n{pending_bills}\nTotal due: {total_bill_amount} {currency}."
+
+  utter_account_info:
+    - text: "Account {account_number} ({account_type}) belonging to {account_holder} at {branch} (IFSC: {ifsc_code}). Current balance: {balance} {currency}."
+
+  utter_help_overview:
+    - text: "I can help with account balance, transfers, transactions, loan info, billing alerts, voice biometric enrollment and OTP authentication. What would you like to do?"
