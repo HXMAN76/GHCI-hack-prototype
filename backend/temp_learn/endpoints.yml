@@ -11,7 +11,9 @@
 # https://rasa.com/docs/rasa-pro/concepts/custom-actions
 
 action_endpoint:
-  actions_module: "actions"
+  # URL of the running action server. Ensure your action server listens on this
+  # address (default for `rasa run actions` / `rasa_sdk` is http://localhost:5055).
+  url: "http://localhost:5055/webhook"
 
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.

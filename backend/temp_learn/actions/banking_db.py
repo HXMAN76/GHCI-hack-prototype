@@ -73,6 +73,11 @@ class VoiceBiometric(BaseModel):
 # ==================== DATABASE PATH MANAGEMENT ====================
 
 ORIGIN_DB_PATH = "db"
+# When USE_SESSION_DB is true (default) the action server copies origin DB files
+# into a session-specific temp directory so runs are isolated. Set
+# `USE_SESSION_DB=false` in the environment to have actions read/write the
+# origin `db/` files directly (persistent development DB).
+USE_SESSION_DB = os.getenv("USE_SESSION_DB", "true").lower() in ("1", "true", "yes")
 ACCOUNTS_DB = "accounts.json"
 TRANSACTIONS_DB = "transactions.json"
 LOANS_DB = "loans.json"
@@ -89,18 +94,26 @@ def get_session_db_path(session_id: str) -> str:
 
 def prepare_db_file(session_id: str, db: str) -> str:
     """Prepare database file for a session"""
+    # If session isolation is disabled, operate directly on origin files
+    origin_file = os.path.join(ORIGIN_DB_PATH, db)
+    if not USE_SESSION_DB:
+        # ensure origin folder exists
+        os.makedirs(ORIGIN_DB_PATH, exist_ok=True)
+        if not os.path.exists(origin_file):
+            write_json_to_file(origin_file, {})
+        return origin_file
+
     session_db_path = get_session_db_path(session_id)
     os.makedirs(session_db_path, exist_ok=True)
     destination_file = os.path.join(session_db_path, db)
-    
+
     if not os.path.exists(destination_file):
-        origin_file = os.path.join(ORIGIN_DB_PATH, db)
         if os.path.exists(origin_file):
             shutil.copy(origin_file, destination_file)
         else:
             # Create empty database
             write_json_to_file(destination_file, {})
-    
+
     return destination_file
 
 
