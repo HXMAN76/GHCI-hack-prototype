@@ -1,0 +1,60 @@
+{
+  "loans": [
+    {
+      "loan_id": "LN00001234",
+      "account_number": "9876543210",
+      "loan_type": "Personal Loan",
+      "principal": 200000.00,
+      "current_balance": 150000.00,
+      "interest_rate": 10.5,
+      "tenure": 60,
+      "emi": 4244.00,
+      "start_date": "2023-06-01T00:00:00Z",
+      "next_emi_date": "2025-12-01T00:00:00Z",
+      "status": "active",
+      "emi_paid": 18
+    },
+    {
+      "loan_id": "LN00001235",
+      "account_number": "9876543210",
+      "loan_type": "Home Loan",
+      "principal": 2000000.00,
+      "current_balance": 1800000.00,
+      "interest_rate": 7.2,
+      "tenure": 240,
+      "emi": 14500.00,
+      "start_date": "2021-03-15T00:00:00Z",
+      "next_emi_date": "2025-12-15T00:00:00Z",
+      "status": "active",
+      "emi_paid": 32
+    },
+    {
+      "loan_id": "LN00002234",
+      "account_number": "9876543211",
+      "loan_type": "Business Loan",
+      "principal": 500000.00,
+      "current_balance": 300000.00,
+      "interest_rate": 9.8,
+      "tenure": 84,
+      "emi": 7500.00,
+      "start_date": "2022-09-01T00:00:00Z",
+      "next_emi_date": "2025-12-01T00:00:00Z",
+      "status": "active",
+      "emi_paid": 26
+    },
+    {
+      "loan_id": "LN00003234",
+      "account_number": "9876543212",
+      "loan_type": "Auto Loan",
+      "principal": 600000.00,
+      "current_balance": 450000.00,
+      "interest_rate": 8.5,
+      "tenure": 60,
+      "emi": 11250.00,
+      "start_date": "2022-12-10T00:00:00Z",
+      "next_emi_date": "2025-12-10T00:00:00Z",
+      "status": "active",
+      "emi_paid": 35
+    }
+  ]
+}

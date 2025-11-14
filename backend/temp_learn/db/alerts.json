@@ -1,0 +1,92 @@
+{
+  "alerts": [
+    {
+      "alert_id": "ALT0001",
+      "account_number": "9876543210",
+      "bill_type": "electricity",
+      "amount": 2500.00,
+      "due_date": "2025-11-20T23:59:59Z",
+      "issued_date": "2025-11-01T00:00:00Z",
+      "provider": "Mumbai Electricity Board",
+      "status": "pending",
+      "days_to_due": 6
+    },
+    {
+      "alert_id": "ALT0002",
+      "account_number": "9876543210",
+      "bill_type": "water",
+      "amount": 800.00,
+      "due_date": "2025-11-25T23:59:59Z",
+      "issued_date": "2025-11-05T00:00:00Z",
+      "provider": "Mumbai Water Board",
+      "status": "pending",
+      "days_to_due": 11
+    },
+    {
+      "alert_id": "ALT0003",
+      "account_number": "9876543210",
+      "bill_type": "mobile",
+      "amount": 499.00,
+      "due_date": "2025-11-15T23:59:59Z",
+      "issued_date": "2025-11-01T00:00:00Z",
+      "provider": "Vodafone India",
+      "status": "pending",
+      "days_to_due": 1
+    },
+    {
+      "alert_id": "ALT0004",
+      "account_number": "9876543210",
+      "bill_type": "credit_card",
+      "amount": 12500.00,
+      "due_date": "2025-11-30T23:59:59Z",
+      "issued_date": "2025-11-10T00:00:00Z",
+      "provider": "SBI Credit Card",
+      "status": "pending",
+      "days_to_due": 16
+    },
+    {
+      "alert_id": "ALT0005",
+      "account_number": "9876543211",
+      "bill_type": "business_tax",
+      "amount": 25000.00,
+      "due_date": "2025-11-30T23:59:59Z",
+      "issued_date": "2025-11-01T00:00:00Z",
+      "provider": "Income Tax Department",
+      "status": "pending",
+      "days_to_due": 16
+    },
+    {
+      "alert_id": "ALT0006",
+      "account_number": "9876543211",
+      "bill_type": "electricity",
+      "amount": 8000.00,
+      "due_date": "2025-11-22T23:59:59Z",
+      "issued_date": "2025-11-01T00:00:00Z",
+      "provider": "Delhi Electricity Board",
+      "status": "pending",
+      "days_to_due": 8
+    },
+    {
+      "alert_id": "ALT0007",
+      "account_number": "9876543212",
+      "bill_type": "vehicle_tax",
+      "amount": 5000.00,
+      "due_date": "2025-12-15T23:59:59Z",
+      "issued_date": "2025-11-10T00:00:00Z",
+      "provider": "Karnataka RTO",
+      "status": "pending",
+      "days_to_due": 31
+    },
+    {
+      "alert_id": "ALT0008",
+      "account_number": "9876543212",
+      "bill_type": "broadband",
+      "amount": 999.00,
+      "due_date": "2025-11-18T23:59:59Z",
+      "issued_date": "2025-11-01T00:00:00Z",
+      "provider": "Jio Fiber",
+      "status": "pending",
+      "days_to_due": 4
+    }
+  ]
+}
