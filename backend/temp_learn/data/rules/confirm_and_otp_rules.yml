@@ -1,0 +1,50 @@
+version: "3.1"
+
+rules:
+  - rule: block otp when max attempts reached
+    steps:
+      - intent: provide_otp
+      - condition:
+          - slot_was_set:
+              - otp_blocked
+      - action: utter_otp_max_attempts
+
+  - rule: confirm pending action on affirm
+    steps:
+      - intent: affirm
+      - condition:
+          - slot_was_set:
+              - action_awaiting_confirmation
+      - action: action_transfer_money
+      - action: action_generate_otp
+      - action: utter_ask_for_otp
+
+  - rule: cancel pending action on deny
+    steps:
+      - intent: deny
+      - condition:
+          - slot_was_set:
+              - action_awaiting_confirmation
+      - action: utter_transfer_failed
+
+  - rule: verify otp when otp has been sent
+    steps:
+      - intent: provide_otp
+      - condition:
+          - slot_was_set:
+              - otp_sent
+      - action: action_verify_otp
+      - condition:
+          - slot_was_set:
+              - otp_verified
+      - action: utter_otp_verified
+      - action: utter_transfer_success
+
+  - rule: handle otp invalid (action will set otp_verified=False and return value)
+    steps:
+      - intent: provide_otp
+      - condition:
+          - slot_was_set:
+              - otp_sent
+      - action: action_verify_otp
+      - action: utter_otp_invalid

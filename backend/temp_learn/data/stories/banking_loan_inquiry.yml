@@ -1,0 +1,34 @@
+version: "3.1"
+
+stories:
+  - story: ask about loan details (happy path)
+    steps:
+      - intent: loan_inquiry
+      - action: action_view_loan_info
+      - action: utter_loan_info
+
+  - story: ask about specific loan type
+    steps:
+      - intent: loan_inquiry
+        entities:
+          - loan_type: home
+      - action: action_view_loan_info
+      - action: utter_loan_info
+
+  - story: loan inquiry - loan not found
+    steps:
+      - intent: loan_inquiry
+        entities:
+          - loan_id: "LN-UNKNOWN"
+      - action: action_view_loan_info
+      - action: utter_no_loans
+
+  - story: loan inquiry - provide loan id after prompt
+    steps:
+      - intent: loan_inquiry
+      - action: action_view_loan_info
+      - intent: provide_loan_id
+        entities:
+          - loan_id: "LN00123456"
+      - action: action_view_loan_info
+      - action: utter_loan_info

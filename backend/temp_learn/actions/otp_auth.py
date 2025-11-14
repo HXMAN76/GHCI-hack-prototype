@@ -50,11 +50,20 @@ class ActionGenerateOTP(Action):
                 attempts = otp_storage[session_id].get("attempts", 0)
                 last_attempt = otp_storage[session_id].get("last_attempt", 0)
                 time_elapsed = time.time() - last_attempt
-                
+                # If verification blocked (too many wrong OTP attempts), check block
+                blocked_until = otp_storage[session_id].get("blocked_until", 0)
+                if blocked_until and time.time() < blocked_until:
+                    dispatcher.utter_message(
+                        text=(
+                            "OTP requests are temporarily blocked due to multiple failed verification attempts. "
+                            "Please try again later."
+                        )
+                    )
+                    return [SlotSet("return_value", "otp_blocked")]
+
                 if attempts >= 3 and time_elapsed < 600:  # 600 seconds = 10 minutes
                     dispatcher.utter_message(
-                        text="You've exceeded the maximum OTP attempts. "
-                        "Please try again in 10 minutes."
+                        text="You've exceeded the maximum OTP generation attempts. Please try again in 10 minutes."
                     )
                     return [SlotSet("return_value", "rate_limited")]
             
@@ -68,6 +77,8 @@ class ActionGenerateOTP(Action):
             otp_storage[session_id]["otp"] = otp
             otp_storage[session_id]["timestamp"] = time.time()
             otp_storage[session_id]["attempts"] = otp_storage[session_id].get("attempts", 0) + 1
+            # reset verify attempts on new OTP generation
+            otp_storage[session_id]["verify_attempts"] = 0
             otp_storage[session_id]["last_attempt"] = time.time()
             otp_storage[session_id]["verified"] = False
             
@@ -164,14 +175,37 @@ class ActionVerifyOTP(Action):
                     SlotSet("return_value", "otp_verified")
                 ]
             else:
+                # increment verify attempts
+                verify_attempts = stored_otp_data.get("verify_attempts", 0) + 1
+                otp_storage[session_id]["verify_attempts"] = verify_attempts
+
+                # if attempts exceed limit, block further retries
+                if verify_attempts >= 3:
+                    dispatcher.utter_message(
+                        text=(
+                            "Maximum OTP attempts exceeded (3). "
+                            "Please request a new OTP to continue."
+                        )
+                    )
+                    # Optionally mark as blocked and clear existing OTP
+                    otp_storage[session_id]["blocked_until"] = time.time() + 600  # block for 10 minutes
+                    return [
+                        SlotSet("otp_verified", False),
+                        SlotSet("otp_attempts", verify_attempts),
+                        SlotSet("otp_blocked", True),
+                        SlotSet("return_value", "otp_max_attempts")
+                    ]
+
+                # otherwise prompt to retry
                 message = (
-                    "OTP verification failed. "
-                    "The code you provided doesn't match. Please try again."
+                    "OTP verification failed. The code you provided doesn't match. "
+                    f"Attempt {verify_attempts}/3. Please try again."
                 )
                 dispatcher.utter_message(text=message)
-                
+
                 return [
                     SlotSet("otp_verified", False),
+                    SlotSet("otp_attempts", verify_attempts),
                     SlotSet("return_value", "otp_incorrect")
                 ]
             

@@ -93,6 +93,12 @@ slots:
   otp_expiry:
     type: text
     mappings: []
+  otp_attempts:
+    type: int
+    mappings: []
+  otp_blocked:
+    type: bool
+    mappings: []
 
   # Confirmation
   action_type:
@@ -137,6 +143,9 @@ responses:
 
   utter_otp_invalid:
     - text: "The OTP you provided is invalid or expired."
+
+  utter_otp_max_attempts:
+    - text: "You've exceeded the maximum number of OTP verification attempts (3). Please request a new OTP to continue."
 
   utter_biometric_enrolled:
     - text: "Voice biometric enrolled successfully. You can now authenticate with your voice."
