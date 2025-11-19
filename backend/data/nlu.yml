@@ -1,0 +1,211 @@
+version: "3.1"
+
+nlu:
+
+# ============================================================
+# GREET
+# ============================================================
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hey
+    - namaste
+    - namaskar
+    - hey there
+    - hello bank bot
+    - hi assistant
+    - good morning
+    - good evening
+
+# ============================================================
+# GOODBYE
+# ============================================================
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you
+    - thank you bye
+    - chalo bye
+    - theek hai bye
+    - ok bye
+
+# ============================================================
+# AFFIRM
+# ============================================================
+- intent: affirm
+  examples: |
+    - yes
+    - haan
+    - ha
+    - okay proceed
+    - sure
+    - yes go ahead
+    - bilkul
+    - proceed
+
+# ============================================================
+# DENY
+# ============================================================
+- intent: deny
+  examples: |
+    - no
+    - nahi
+    - no cancel
+    - don't proceed
+    - stop
+    - cancel it
+    - withdraw
+
+# ============================================================
+# CHECK BALANCE
+# ============================================================
+- intent: check_balance
+  examples: |
+    - what is my balance
+    - mera balance batao
+    - balance check karo
+    - account balance please
+    - how much money do I have
+    - check my account balance
+
+# ============================================================
+# CHECK TRANSACTION HISTORY
+# ============================================================
+- intent: check_transaction_history
+  examples: |
+    - show last transactions
+    - recent transactions
+    - last 5 transactions
+    - transaction history dikhaiye
+    - meri latest transactions
+    - show my recent activity
+
+# ============================================================
+# INITIATE TRANSFER
+# ============================================================
+- intent: initiate_transfer
+  examples: |
+    - I want to transfer money
+    - paisa bhejna hai
+    - send money
+    - transfer karna hai
+    - make a payment
+    - I want to send cash
+
+# ============================================================
+# PROVIDE NAME
+# ============================================================
+- intent: provide_name
+  examples: |
+    - to [Rahul](name)
+    - name is [Priya](name)
+    - [Aarav](name) ko bhejo
+    - send to [Sneha](name)
+    - recipient is [Rohit](name)
+    - [Nikita](name)
+
+# ============================================================
+# PROVIDE ACCOUNT NUMBER
+# ============================================================
+- intent: provide_account_number
+  examples: |
+    - account number is [100002](account_number)
+    - [100010](account_number)
+    - mera account number [100003](account_number)
+    - please send to account [100005](account_number)
+    - transfer to account [100020](account_number)
+
+# ============================================================
+# PROVIDE IFSC
+# ============================================================
+- intent: provide_ifsc
+  examples: |
+    - IFSC is [HDFC0000001](ifsc)
+    - [HDFC0001234](ifsc)
+    - ifsc code [ICIC0002233](ifsc)
+    - IFSC [SBIN0001122](ifsc)
+
+# ============================================================
+# PROVIDE AMOUNT
+# ============================================================
+- intent: provide_amount
+  examples: |
+    - amount is [1000](amount)
+    - [2000](amount)
+    - [15000](amount)
+    - bhejo [500](amount)
+    - total [750](amount)
+    - send [2500](amount)
+
+# ============================================================
+# BLOCK CARD
+# ============================================================
+- intent: block_card
+  examples: |
+    - block my debit card
+    - debit card block karo
+    - I want to block my credit card
+    - card block karna hai
+    - block card please
+
+- intent: provide_card_type
+  examples: |
+    - [debit](card_type)
+    - [credit](card_type)
+
+# ============================================================
+# LOAN RATES
+# ============================================================
+- intent: ask_loan_rates
+  examples: |
+    - loan rates kya hain
+    - loan interest rate
+    - show me loan interest
+    - interest rate for home loan
+    - personal loan interest
+
+# ============================================================
+# FD RATES
+# ============================================================
+- intent: ask_fd_rates
+  examples: |
+    - FD rates
+    - fixed deposit rates
+    - FD interest batao
+    - deposit interest rates
+    - what are the FD options
+
+# ============================================================
+# FRAUD REPORT
+# ============================================================
+- intent: report_fraud
+  examples: |
+    - I want to report fraud
+    - fraud ho gaya
+    - something is wrong in my account
+    - suspicious transaction
+    - unauthorized transaction happened
+
+# ============================================================
+# BRANCH LOCATOR
+# ============================================================
+- intent: branch_locator
+  examples: |
+    - nearest branch
+    - bank branch in [Mumbai](location)
+    - branch in [Delhi](location)
+    - branch kaha hai
+    - branch in [Kochi](location)
+    - find branch in [Bengaluru](location)
+
+# ============================================================
+# OUT OF SCOPE
+# ============================================================
+- intent: out_of_scope
+  examples: |
+    - tum cricket ka score batao
+    - what's the weather today
+    - tell me a joke
+    - who is the president of india

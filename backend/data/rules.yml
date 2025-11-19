@@ -1,0 +1,136 @@
+version: "3.1"
+
+rules:
+
+- rule: greet
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+- rule: goodbye
+  steps:
+    - intent: goodbye
+    - action: utter_goodbye
+
+- rule: fallback
+  steps:
+    - intent: nlu_fallback
+    - action: utter_fallback
+
+- rule: out of scope
+  steps:
+    - intent: out_of_scope
+    - action: utter_out_of_scope
+
+# =======================
+# BALANCE & HISTORY
+# =======================
+
+- rule: check balance
+  steps:
+    - intent: check_balance
+    - action: action_check_balance
+
+- rule: check transactions
+  steps:
+    - intent: check_transaction_history
+    - action: action_transaction_history
+
+# =======================
+# MONEY TRANSFER
+# =======================
+
+- rule: ask payee name
+  steps:
+    - intent: initiate_transfer
+    - action: utter_ask_payee_name
+
+- rule: ask account number
+  steps:
+    - intent: provide_name
+    - action: utter_ask_account_number
+
+- rule: ask IFSC
+  steps:
+    - intent: provide_account_number
+    - action: utter_ask_ifsc
+
+- rule: ask amount
+  steps:
+    - intent: provide_ifsc
+    - action: utter_ask_amount
+
+- rule: confirm transfer
+  steps:
+    - intent: provide_amount
+    - action: utter_confirm_transfer
+    - action: action_set_confirm_transfer
+
+- rule: proceed transfer
+  condition:
+    - slot_was_set:
+        - amount
+  steps:
+    - intent: affirm
+    - action: action_transfer_money
+
+- rule: cancel transfer
+  steps:
+    - intent: deny
+    - action: utter_cancel_operation
+
+# =======================
+# CARD BLOCK
+# =======================
+
+- rule: card block confirm
+  steps:
+    - intent: block_card
+    - action: utter_confirm_block_card
+    - action: action_set_confirm_card_block
+
+- rule: proceed card block
+  condition:
+    - slot_was_set:
+        - card_type
+  steps:
+    - intent: affirm
+    - action: action_block_card
+    - action: utter_card_blocked
+
+- rule: cancel card block
+  steps:
+    - intent: deny
+    - action: utter_cancel_operation
+
+# =======================
+# FRAUD REPORT
+# =======================
+
+- rule: fraud confirm
+  steps:
+    - intent: report_fraud
+    - action: utter_ask_fraud_confirmation
+    - action: action_set_confirm_fraud
+
+- rule: proceed fraud
+  condition:
+    - slot_was_set:
+        - fraud_details
+  steps:
+    - intent: affirm
+    - action: action_report_fraud
+
+- rule: cancel fraud
+  steps:
+    - intent: deny
+    - action: utter_cancel_operation
+
+# =======================
+# BRANCH LOCATOR
+# =======================
+
+- rule: branch locator
+  steps:
+    - intent: branch_locator
+    - action: action_branch_locator
