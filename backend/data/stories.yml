@@ -1,0 +1,95 @@
+version: "3.1"
+
+stories:
+
+# ============================================================
+# BALANCE CHECK
+# ============================================================
+- story: check balance flow
+  steps:
+    - intent: check_balance
+    - action: action_check_balance
+
+
+# ============================================================
+# TRANSACTION HISTORY
+# ============================================================
+- story: transaction history flow
+  steps:
+    - intent: check_transaction_history
+    - action: action_transaction_history
+
+
+# ============================================================
+# LOAN RATES
+# ============================================================
+- story: loan rates flow
+  steps:
+    - intent: ask_loan_rates
+    - action: action_loan_rates
+
+
+# ============================================================
+# FD RATES
+# ============================================================
+- story: fd rates flow
+  steps:
+    - intent: ask_fd_rates
+    - action: action_fd_rates
+
+
+# ============================================================
+# MONEY TRANSFER (demo flow)
+# ============================================================
+- story: money transfer example
+  steps:
+    - intent: initiate_transfer
+    - action: utter_ask_payee_name
+
+    - intent: provide_name
+    - action: utter_ask_account_number
+
+    - intent: provide_account_number
+    - action: utter_ask_ifsc
+
+    - intent: provide_ifsc
+    - action: utter_ask_amount
+
+    - intent: provide_amount
+    - action: utter_confirm_transfer
+    - action: action_set_confirm_transfer
+
+    - intent: affirm
+
+
+# ============================================================
+# CARD BLOCKING
+# ============================================================
+- story: block card example
+  steps:
+    - intent: block_card
+    - action: utter_confirm_block_card
+    - action: action_set_confirm_card_block
+
+    - intent: affirm
+
+
+# ============================================================
+# FRAUD REPORT
+# ============================================================
+- story: fraud report example
+  steps:
+    - intent: report_fraud
+    - action: utter_ask_fraud_confirmation
+    - action: action_set_confirm_fraud
+
+    - intent: affirm
+
+
+# ============================================================
+# BRANCH LOCATOR
+# ============================================================
+- story: branch locator example
+  steps:
+    - intent: branch_locator
+    - action: action_branch_locator

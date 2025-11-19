@@ -1,0 +1,176 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - nlu_fallback
+  - out_of_scope
+  - check_balance
+  - check_transaction_history
+  - initiate_transfer
+  - provide_name
+  - provide_account_number
+  - provide_ifsc
+  - provide_amount
+  - block_card
+  - report_fraud
+  - ask_loan_rates
+  - ask_fd_rates
+  - branch_locator
+
+
+entities:
+  - name
+  - account_number
+  - ifsc
+  - amount
+  - card_type
+  - location
+  - fraud_details
+
+
+slots:
+
+  user_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+
+  name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: name
+
+  account_number:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: account_number
+      - type: from_text
+        intent: provide_account_number
+
+  ifsc:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: ifsc
+
+  amount:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: amount
+      - type: from_text
+        intent: provide_amount
+
+  card_type:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: card_type
+
+  location:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: location
+
+  fraud_details:
+    type: text
+    mappings:
+      - type: from_text
+      - type: from_entity
+        entity: fraud_details
+
+
+  # 🔥 NEW CONFIRMATION FLAGS
+  confirm_transfer:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+      - type: custom
+
+  confirm_card_block:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+      - type: custom
+
+  confirm_fraud:
+    type: bool
+    influence_conversation: true
+    initial_value: false
+    mappings:
+      - type: custom
+
+
+responses:
+
+  utter_greet:
+    - text: "Hello! How can I assist you today?"
+
+  utter_goodbye:
+    - text: "Goodbye! Stay safe."
+
+  utter_fallback:
+    - text: "Sorry, I didn't understand that. Please try again."
+
+  utter_out_of_scope:
+    - text: "I can't help with that, but I can assist with banking tasks."
+
+  utter_ask_payee_name:
+    - text: "Whom do you want to transfer money to?"
+
+  utter_ask_account_number:
+    - text: "Please share the recipient's account number."
+
+  utter_ask_ifsc:
+    - text: "Please provide the IFSC code."
+
+  utter_ask_amount:
+    - text: "How much amount do you want to transfer?"
+
+  utter_confirm_transfer:
+    - text: "You are transferring ₹{amount} to {name}. Should I proceed?"
+
+  utter_cancel_operation:
+    - text: "Okay, I have cancelled the operation."
+
+  utter_confirm_block_card:
+    - text: "Blocking your {card_type} card is permanent. Do you want to continue?"
+
+  utter_card_blocked:
+    - text: "Your {card_type} card has been successfully blocked."
+
+  utter_ask_fraud_confirmation:
+    - text: "Do you confirm that you want to report this as fraud?"
+
+
+actions:
+  - action_check_balance
+  - action_transaction_history
+  - action_transfer_money
+  - action_block_card
+  - action_report_fraud
+  - action_loan_rates
+  - action_fd_rates
+  - action_branch_locator
+
+  # NEW confirmation actions
+  - action_set_confirm_transfer
+  - action_reset_confirm_transfer
+  - action_set_confirm_card_block
+  - action_reset_confirm_card_block
+  - action_set_confirm_fraud
+  - action_reset_confirm_fraud
+
+
+session_config:
+  session_expiration_time: 30
+  carry_over_slots_to_new_session: false
